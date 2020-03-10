@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">Fiche Catégorie</h1>
+        <div class="card bg-light" style="padding: 20px">
+            {{ form(form) }}
+        </div>
+        <div class="row">
+            {% for categorie in categories %}
+                <li class="list-group-item"><a href="{{ path('categorie',{id: categorie.id}) }}">{{ categorie.nom }}</a><div>nombre de catégorie: {{ categorie.series |length }}</div><a href="{{path("remove1", {id: categorie.id})}}" class="btn btn-danger">Supprimer</a></li>
+            {% endfor %}
+        </div>
+        {{ form(form) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% block title %}Hello SeriesController!{% endblock %}
+
+{% block body %}
+
+
+    <div class="container mt-5">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="text-center">Séries</h1>
+            {% if serie is empty %}
+                <p>Aucune série n'est enregistrée</p>
+            {% else %}
+                <ul>
+                    {% for serie in series %}
+                        <option value="{{serie.id}}">
+                            {{ serie.nom |capitalize}}
+                            {{ serie.start}}
+                            {{ serie.end}}
+                            {{ serie.saison}}
+                            {{ serie.categorie |capitalize}}
+                            <div>
+                                <a href="{{ path('serie',{id: serie.id}) }}" class="btn btn-primary">voir la série</a>
+                            </div>
+                        </option>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="col-6">
+            {{form_start(formSeries)}}
+            {{form_end(formSeries)}}
+        </div>
+    </div>
+
+
+{% endblock %}

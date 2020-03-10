@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">Fiche Serie</h1>
+        <div class="card bg-light" style="padding: 20px">
+            {{ form(form) }}
+        </div>
+        <div class="row">
+            {% if series|length > 0 %}
+                {% for serie in series %}
+                    <div class="col-4" style="margin: 10px;">
+                        <div class="card bg-light">
+                            {% if serie.affiche is not null %}
+                                <img src="{{ asset('assets/images/' ~ serie.affiche) }}" class="card-img-top" />
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ serie.nom }}</h5>
+                                <p class="card-text">{{ serie.start |date('Y-m-d') }}</p>
+                                <p class="card-text">{% if serie.end == null %}...{% else %}{{ serie.endday |date('Y-m-d')  }}{% endif %}</p>
+                                <p class="card-text">saisons :{{ serie.saisons }}</p>
+                                <p class="card-text">{{ serie.categorie.nom }}</p>
+                                <div class="row justify-space-around">
+                                    <a href="{{ path('serie',{id: serie.id}) }}" class="btn btn-primary">voir la série</a>
+                                    <a href="{{path("remove", {id: serie.id})}}" class="btn btn-danger">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>il n'y a pas de série</p>
+            {% endif %}
+        </div>
+    </div>
+    <style>
+        input{
+            margin: 10px;
+        }
+    </style>
+{% endblock %}
